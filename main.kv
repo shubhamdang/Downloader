@@ -1,0 +1,127 @@
+<ScreenManagement>:
+    id:sd
+    FirstScreen
+        id:firstt
+    SecondScreen
+        id:secondd
+    ThirdScreen
+        id:thirdd
+
+<FirstScreen>:
+
+    id: first
+    name: "first"
+    BoxLayout:
+        orientation:'vertical'
+        spacing: 20
+        AnchorLayout:
+            GridLayout:
+                cols:2
+                size_hint:.9,.15
+                Label:
+                    text:"Enter URL"
+                    size_hint:.2,.15
+                TextInput:
+                    text:""
+                    id:page1input
+                    padding:[6,10,6,6]
+                    size_hint:.7,0.15
+                    multiline:False
+                    font_size:20
+        AnchorLayout:
+            Button:
+                id:fetchbutton
+                background_color:(27/255.0,75/255.0,199/255.0,1)
+                text: "Fetch Format"
+                font_size: self.font_size
+                size_hint:.4,0.15
+                on_press:root.insert(root.ids.page1input.text)
+
+<SecondScreen>:
+    id: second
+    name: "second"
+    BoxLayout:
+        orientation:'vertical'
+        AnchorLayout:
+            id:titlecover
+            padding_top:1.5
+            size_hint:1,.35
+            Label:
+                id:title
+                text:""
+                size_hint:.1,.35
+        AnchorLayout:
+            GridLayout:
+                cols:2
+                size_hint:.9,.22
+                Label:
+                    text:"URL"
+                    size_hint:.1,.15
+                TextInput:
+                    id:url
+                    text:root.manager.ids.firstt.ids.page1input.text
+                    padding:[6,10,6,6]
+                    size_hint:.8,0.15
+                    multiline:False
+                    font_size:20
+                    readonly:True
+
+        AnchorLayout:
+            ScrollView:
+                size_hint:0.7,1.2
+                width:300
+                GridLayout:
+                    id:grid
+                    cols:1
+                    spacing:0.7
+                    size_hint_y:None
+                    height:0
+
+        AnchorLayout:
+            GridLayout:
+                cols:2
+                size_hint:.5,.25
+                spacing:15
+                Button:
+                    text: "Back"
+                    font_size: self.font_size
+                    size_hint:.4,0.25
+                    on_press:
+                        root.back()
+                        root.manager.transition.direction = 'right'
+                        second.manager.current='first'
+                    background_color:(27/255.0,75/255.0,199/255.0,1)
+                Button:
+                    text: "Download"
+                    font_size: self.font_size
+                    size_hint:.4,0.25
+                    on_press:
+                        root.move()
+                    background_color:(27/255.0,75/255.0,199/255.0,1)
+<ThirdScreen>:
+    id:third
+    name:"third"
+    on_enter:self.manager.ids.secondd.down()
+    BoxLayout:
+        id:box
+        orientation:'vertical'
+        spacing:23
+        AnchorLayout:
+            Label:
+                id:barl
+                text :root.val
+                color:(0,0,0,1)
+
+        AnchorLayout:
+            ProgressBar:
+                size_hint:.7,2
+                id:bar
+                max:100
+                value:50
+                bcolor:(213/255.0,42/255.0,52/255.0,1)
+                foreground_color:(213/255.0,42/255.0,52/255.0,1)
+        AnchorLayout:
+            Label:
+                id:barl
+                text : "percentage"
+                color:(0,0,0,1)
